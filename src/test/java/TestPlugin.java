@@ -1,12 +1,17 @@
-import me.itzloghotxd.pdk.utilities.chat.ChatUtilities;
+import me.itzloghotxd.pdk.command.CommandHandler;
+import me.itzloghotxd.pdk.command.CommandManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TestPlugin extends JavaPlugin {
-    private ChatUtilities chatUtilities;
+    private CommandManager commandManager;
 
     public void onEnable() {
-        chatUtilities = new ChatUtilities();
+        commandManager = new CommandManager();
+        new CommandHandler(this, "test");
+        registerCommands();
+    }
 
-        chatUtilities.broadcastMessage("hi!");
+    public void registerCommands() {
+        commandManager.registerCommand("test2", new testcommand());
     }
 }
