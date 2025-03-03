@@ -6,12 +6,12 @@
 
     <groupId>me.itzloghotxd.pdk</groupId>
     <artifactId>PluginDevKit</artifactId>
-    <version>1.1.2</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>PluginDevKit</name>
     <description>A Minecraft plugin API for My plugins.</description>
-    <url>https://github.com/ItzLoghotXD/pluginDevKit</url>
+    <url>https://github.com/ItzLoghotXD/PluginDevelopmentKit</url>
 
     <properties>
         <java.version>16</java.version>
