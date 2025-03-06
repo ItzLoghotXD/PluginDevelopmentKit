@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.itzloghotxd.pdk.actions"},{"l":"me.itzloghotxd.pdk.command"},{"l":"me.itzloghotxd.pdk.config"},{"l":"me.itzloghotxd.pdk.utilities.chat"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.itzloghotxd.pdk.actions"},{"l":"me.itzloghotxd.pdk.command"},{"l":"me.itzloghotxd.pdk.config"},{"l":"me.itzloghotxd.pdk.item"},{"l":"me.itzloghotxd.pdk.scoreboard"},{"l":"me.itzloghotxd.pdk.utilities.chat"}];updateSearchResults();
