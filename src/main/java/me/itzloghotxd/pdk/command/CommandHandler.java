@@ -30,8 +30,8 @@ public class CommandHandler implements CommandExecutor, TabExecutor {
      * @param plugin The plugin instance registering this command handler.
      * @param name   The name of the command being handled.
      */
-    public CommandHandler(@NotNull JavaPlugin plugin, @NotNull String name) {
-        commandManager = new CommandManager();
+    public CommandHandler(@NotNull JavaPlugin plugin, @NotNull String name, @NotNull CommandManager commandManager) {
+        this.commandManager = commandManager;
         this.name = name;
         Objects.requireNonNull(plugin.getCommand(name)).setExecutor(this);
         Objects.requireNonNull(plugin.getCommand(name)).setTabCompleter(this);
