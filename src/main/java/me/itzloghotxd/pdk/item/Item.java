@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -154,7 +153,7 @@ public class Item {
             if (!ID.isEmpty()) {
                 ID = sanitizeID(ID);
                 NamespacedKey key = new NamespacedKey(plugin, ID);
-                meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, name);
+                meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, ChatColor.stripColor(ID).toLowerCase());
             }
 
             item.setItemMeta(meta);
@@ -180,7 +179,7 @@ public class Item {
             if (!ID.isEmpty()) {
                 ID = sanitizeID(ID);
                 NamespacedKey key = new NamespacedKey(plugin, ID);
-                meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, name);
+                meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, ChatColor.stripColor(ID).toLowerCase());
             }
 
             item.setItemMeta(meta);
@@ -209,7 +208,7 @@ public class Item {
             if (!ID.isEmpty()) {
                 ID = sanitizeID(ID);
                 NamespacedKey key = new NamespacedKey(plugin, ID);
-                meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, name);
+                meta.getPersistentDataContainer().set(key, PersistentDataType.STRING, ChatColor.stripColor(ID).toLowerCase());
             }
 
             item.setItemMeta(meta);
@@ -219,31 +218,29 @@ public class Item {
     }
 
     /**
-     * Retrieves all stored item IDs from an ItemStack's PersistentDataContainer.
+     * Retrieves the first stored item ID from an ItemStack's PersistentDataContainer.
      *
      * @param item The ItemStack to check.
-     * @return A map containing stored item IDs.
+     * @return The first stored item ID, or null if none found.
      */
-    public Map<String, String> getItemIDs(ItemStack item) {
-        Map<String, String> idMap = new HashMap<>();
-
-        if (item == null || !item.hasItemMeta()) {
-            return idMap;
+    @Nullable
+    public String getItemID(@NotNull ItemStack item) {
+        if (!item.hasItemMeta()) {
+            return null;
         }
 
         ItemMeta meta = item.getItemMeta();
         if (meta == null) {
-            return idMap;
+            return null;
         }
 
         for (NamespacedKey key : meta.getPersistentDataContainer().getKeys()) {
             String value = meta.getPersistentDataContainer().get(key, PersistentDataType.STRING);
             if (value != null) {
-                idMap.put(key.toString(), value);
+                return value;
             }
         }
-
-        return idMap;
+        return null;
     }
 
     /**

@@ -81,6 +81,13 @@ public class ConfigManager {
     }
 
     /**
+     * Saves the default configuration files if it does not already exist.
+     */
+    public void saveDefault() {
+        configurations.values().forEach(ConfigHandler::saveDefaultConfig);
+    }
+
+    /**
      * Checks if a configuration file is registered.
      *
      * @param type The {@link Enum} key associated with the configuration file.

@@ -14,7 +14,7 @@ import java.util.Objects;
 
 /**
  * Handles command execution and tab completion for a specific registered command.
- * It delegates command handling to {@link CommandManager}.
+ * It delegates command handling and tab completion to {@link CommandManager}.
  *
  * @author ItzLoghotXD
  */
@@ -29,6 +29,7 @@ public class CommandHandler implements CommandExecutor, TabExecutor {
      *
      * @param plugin The plugin instance registering this command handler.
      * @param name   The name of the command being handled.
+     * @param commandManager The {@link CommandManager} instance.
      */
     public CommandHandler(@NotNull JavaPlugin plugin, @NotNull String name, @NotNull CommandManager commandManager) {
         this.commandManager = commandManager;
@@ -38,7 +39,7 @@ public class CommandHandler implements CommandExecutor, TabExecutor {
     }
 
     /**
-     * Handles the execution of the command.
+     * Handles the execution of the command. If no subcommand is provided, it informs the sender of the correct usage.
      *
      * @param sender  The sender who executed the command.
      * @param command The Bukkit command object.
@@ -46,6 +47,7 @@ public class CommandHandler implements CommandExecutor, TabExecutor {
      * @param args    The arguments passed to the command.
      * @return true if the command was handled successfully, false otherwise.
      */
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {

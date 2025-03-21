@@ -33,7 +33,7 @@ public interface Command {
     /**
      * Retrieves the permission required to execute the command.
      *
-     * @return The permission string required for the command.
+     * @return The permission string required for the command. Returns an empty string if no permission is required.
      */
     String getPermission();
 }

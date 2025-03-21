@@ -1,4 +1,4 @@
-package me.itzloghotxd.pdk.actions;
+package me.itzloghotxd.pdk.action;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,7 +19,7 @@ import java.util.logging.Level;
 public class ActionManager {
 
     private final JavaPlugin plugin;
-    private final Map<String, Action> actions = new HashMap<>();
+    private final Map<String, Action> actions;
 
     /**
      * Constructs a new ActionManager for handling and executing actions.
@@ -28,12 +28,13 @@ public class ActionManager {
      */
     public ActionManager(JavaPlugin plugin) {
         this.plugin = plugin;
+        actions = new HashMap<>();
     }
 
     /**
      * Registers one or more actions to the manager.
      *
-     * @param actions The {@link Action}(s) to be registered.
+     * @param actions One or more {@link Action} instances to be registered.
      */
     public void registerAction(@NotNull Action... actions) {
         for (Action action : actions) {
@@ -43,7 +44,12 @@ public class ActionManager {
 
     /**
      * Executes a list of actions for a given player.
-     * Each action string should be formatted as "[ACTION_NAME] optional_data".
+     * Each action string should be formatted as:
+     * {@code [ACTION_NAME] optional_data}.
+     * The {@code ACTION_NAME} must be enclosed in square brackets,
+     * followed by an optional space-separated parameter.
+     * <p>
+     * Logs a warning if an invalid or unknown action is encountered.
      *
      * @param player  The player executing the actions.
      * @param actions A list of action strings to be executed.

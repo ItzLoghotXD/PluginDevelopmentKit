@@ -1,4 +1,4 @@
-package me.itzloghotxd.pdk.actions;
+package me.itzloghotxd.pdk.action;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;

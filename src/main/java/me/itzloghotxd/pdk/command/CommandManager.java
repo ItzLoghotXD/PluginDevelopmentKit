@@ -36,7 +36,7 @@ public class CommandManager {
     }
 
     /**
-     * Executes a registered subcommand.
+     * Executes a registered subcommand if available and checks permissions.
      *
      * @param sender The sender who executed the command.
      * @param args   The arguments passed to the command.
@@ -63,7 +63,7 @@ public class CommandManager {
      *
      * @param sender The sender requesting tab completion.
      * @param args   The current arguments typed by the sender.
-     * @return A list of possible tab-completion results.
+     * @return A list of possible tab-completion results. Returns an empty list if no matches are found.
      */
     public List<String> getTabCompletions(CommandSender sender, String[] args) {
         if (args.length == 1) {
