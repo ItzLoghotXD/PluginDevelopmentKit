@@ -1,5 +1,6 @@
 package me.itzloghotxd.pdk.action;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -40,6 +41,7 @@ public class ActionManager {
         for (Action action : actions) {
             this.actions.put(action.getIdentifier().toUpperCase(), action);
         }
+        Bukkit.getLogger().log(Level.INFO, "Successfully registered " + this.actions.size() + " Action(s)!");
     }
 
     /**

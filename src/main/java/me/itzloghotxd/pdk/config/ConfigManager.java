@@ -1,11 +1,13 @@
 package me.itzloghotxd.pdk.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 /**
  * Manages multiple configuration files by mapping them to an {@link Enum} type.
@@ -85,6 +87,7 @@ public class ConfigManager {
      */
     public void saveDefault() {
         configurations.values().forEach(ConfigHandler::saveDefaultConfig);
+        Bukkit.getLogger().log(Level.INFO, "Successfully registered and saved " + configurations.size() + " config file(s)!");
     }
 
     /**
