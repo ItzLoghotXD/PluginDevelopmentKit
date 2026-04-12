@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"me.itzloghotxd.pdk.command","l":"BaseCommandExecutor"},{"p":"me.itzloghotxd.pdk.command","l":"CommandHandler"},{"p":"me.itzloghotxd.pdk.command","l":"CommandManager"},{"p":"me.itzloghotxd.pdk.command","l":"SubCommand"}];updateSearchResults();
