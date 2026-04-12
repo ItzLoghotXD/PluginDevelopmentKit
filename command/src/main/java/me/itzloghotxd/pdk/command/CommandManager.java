@@ -46,7 +46,7 @@ public class CommandManager {
      *
      * @param commands The {@link SubCommand} implementation(s).
      */
-    public void registerCommand(@NotNull SubCommand... commands) {
+    public void register(@NotNull SubCommand... commands) {
         for (SubCommand command : commands) {
             subCommands.put(command.getIdentifier().toLowerCase(), command);
         }
@@ -60,7 +60,7 @@ public class CommandManager {
      * @param args The arguments passed to the command.
      * @return {@code true} if the command was handled successfully, {@code false} otherwise.
      */
-    public boolean executeCommand(CommandSender sender, String[] args) {
+    protected boolean executeCommand(CommandSender sender, String[] args) {
         SubCommand subCommand = subCommands.get(args[0].toLowerCase());
         if (subCommand == null) {
             sender.sendMessage(ChatColor.RED + "Unknown command: " + args[0].toLowerCase());
@@ -86,7 +86,7 @@ public class CommandManager {
      * @param args The current arguments typed by the sender.
      * @return A list of possible tab-completion results. Returns an empty list if no matches are found.
      */
-    public List<String> getTabCompletions(CommandSender sender, String[] args) {
+    protected List<String> getTabCompletions(CommandSender sender, String[] args) {
         if (args.length == 1) {
             return subCommands.keySet().stream().filter(subCommand -> subCommand.startsWith(args[0].toLowerCase())).toList();
         }
