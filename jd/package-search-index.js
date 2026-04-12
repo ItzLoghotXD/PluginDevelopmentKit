@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.itzloghotxd.pdk.command"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"me.itzloghotxd.pdk.command"},{"l":"me.itzloghotxd.pdk.config"}];updateSearchResults();

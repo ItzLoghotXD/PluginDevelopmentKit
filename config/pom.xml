@@ -12,7 +12,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>command</artifactId>
+    <artifactId>config</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

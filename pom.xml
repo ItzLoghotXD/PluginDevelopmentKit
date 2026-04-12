@@ -6,7 +6,7 @@
 
     <groupId>me.itzloghotxd.pdk</groupId>
     <artifactId>parent</artifactId>
-    <version>0.1.1</version>
+    <version>0.2.0</version>
     <packaging>pom</packaging>
 
     <name>PluginDevKit</name>
@@ -16,6 +16,7 @@
     <!-- All child modules -->
     <modules>
         <module>command</module>
+        <module>config</module>
     </modules>
 
     <properties>
