@@ -56,11 +56,7 @@ public class ConfigHandler {
         }
     }
 
-    /**
-     * Saves the default configuration file if it does not already exist.
-     * If an error occurs during loading, the plugin is disabled.
-     */
-    public void saveDefault() {
+    protected void saveDefault() {
         if (!file.exists()) {
             try {
                 plugin.saveResource(name, false);

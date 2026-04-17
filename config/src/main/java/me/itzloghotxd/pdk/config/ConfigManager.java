@@ -39,6 +39,15 @@ public class ConfigManager {
     }
 
     /**
+     * Loads all registered configuration files.
+     */
+    public void load() {
+        for (ConfigHandler handler : configurations.values()) {
+            handler.load(false);
+        }
+    }
+
+    /**
      * Saves all registered configuration files.
      */
     public void save() {
