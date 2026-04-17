@@ -25,7 +25,7 @@ import java.util.logging.Level;
  * utility methods to interact with the file.
  *
  * @author ItzLoghotXD
- * @since 0.0.2
+ * @since 0.2.0
  */
 public class ConfigHandler {
     private final JavaPlugin plugin;
@@ -46,70 +46,67 @@ public class ConfigHandler {
         configuration = new YamlConfiguration();
     }
 
-    /**
-     * Saves the default configuration file if it does not already exist.
-     * If an error occurs during loading, the plugin is disabled.
-     */
-    public void saveDefaultConfig() {
-        if (!file.exists()) {
-            try {
-                plugin.saveResource(name, false);
-            } catch (IllegalArgumentException i) {
-                plugin.getLogger().log(Level.WARNING, "[PDK CONFIG] Could not find config file: " + name + "inside the jar.");
-            }
-        }
-
-        if (!file.exists()) {
-            plugin.getLogger().log(Level.SEVERE, "[PDK CONFIG] File " + name + " doesn't exists.");
-            plugin.getLogger().log(Level.INFO, "[PDK CONFIG] An empty file will be created.");
-            try {
-                if (file.getParentFile() != null) {
-                    file.getParentFile().mkdirs();
-                }
-                file.createNewFile();
-            } catch (IOException e) {
-                handleConfigLoadingException(e);
-                return;
-            }
-        }
-
+    protected void load(boolean b) {
         try {
             configuration.load(file);
         } catch (IOException e) {
-            handleConfigLoadingException(e);
+            handleConfigLoadingException(e, b);
         } catch (InvalidConfigurationException e) {
-            handleConfigLoadingException(e);
+            handleConfigLoadingException(e, b);
         }
     }
 
     /**
-     * Saves the current configuration state to the file.
-     * If an error occurs, it logs an error message.
+     * Saves the default configuration file if it does not already exist.
+     * If an error occurs during loading, the plugin is disabled.
      */
-    public void save() {
+    public void saveDefault() {
+        if (!file.exists()) {
+            try {
+                plugin.saveResource(name, false);
+            } catch (IllegalArgumentException i) {
+                plugin.getLogger().log(Level.WARNING, "[PDK CONFIG] Could not find config file: " + name + " inside the jar.");
+            }
+        }
+
+        if (!file.exists()) {
+            plugin.getLogger().log(Level.SEVERE, "[PDK CONFIG] File " + name + " doesn't exist.");
+            plugin.getLogger().log(Level.INFO, "[PDK CONFIG] An empty file will be created.");
+            try {
+                if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                    if (!file.getParentFile().mkdirs()) {
+                        throw new IOException("Failed to create directories: " + file.getParentFile().getAbsolutePath());
+                    }
+                }
+
+                if (!file.createNewFile()) {
+                    throw new IOException("Failed to create file: " + file.getAbsolutePath());
+                }
+            } catch (IOException e) {
+                handleConfigLoadingException(e, true);
+                return;
+            }
+        }
+
+        load(true);
+    }
+
+    protected void save() {
         if (configuration == null || file == null) return;
 
         try {
-            getConfig().save(file);
+            configuration.save(file);
         } catch (IOException e) {
             plugin.getLogger().log(Level.SEVERE, "[PDK CONFIG] Could not save config file: " + name);
             e.printStackTrace();
         }
     }
 
-    /**
-     * Reloads the configuration from the file, replacing the current configuration instance.
-     */
-    public void reload() {
+    protected void reload() {
         configuration = YamlConfiguration.loadConfiguration(file);
     }
 
-    /**
-     * Retrieves the current {@link FileConfiguration} instance.
-     *
-     * @return The {@link FileConfiguration} object for this config file.
-     */
-    public FileConfiguration getConfig() {
+    protected FileConfiguration getConfig() {
         return configuration;
     }
 
@@ -117,14 +114,17 @@ public class ConfigHandler {
         return name.substring(0, name.length() - 4);
     }
 
-    private void handleConfigLoadingException(Exception e) {
+    private void handleConfigLoadingException(Exception e, boolean b) {
         plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] ============= CONFIGURATION ERROR =============");
         plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] There was an error loading " + name);
         plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] Please check for any obvious configuration mistakes");
         plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] such as using tabs for spaces or forgetting to end quotes");
-        plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] before reporting to the developer. The plugin will now disable..");
+        plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] before reporting to the developer.");
         plugin.getLogger().log(Level.SEVERE,"[PDK CONFIG] ============= CONFIGURATION ERROR =============");
         e.printStackTrace();
-        plugin.getServer().getPluginManager().disablePlugin(plugin);
+        if (b) {
+            plugin.getLogger().log(Level.SEVERE, "The plugin will now disable...");
+            plugin.getServer().getPluginManager().disablePlugin(plugin);
+        }
     }
 }

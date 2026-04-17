@@ -11,7 +11,7 @@
 package me.itzloghotxd.pdk.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -19,22 +19,22 @@ import java.util.Map;
 import java.util.logging.Level;
 
 /**
- * Manages multiple configuration files by mapping them to an {@link String} config.
+ * Manages multiple configuration files by mapping them to an {@link String}.
  * This class provides utility functions to save, reload, and retrieve configurations efficiently.
  *
  * @author ItzLoghotXD
- * @since 0.0.2
+ * @since 0.2.0
  */
 public class ConfigManager {
     private final Map<String, ConfigHandler> configurations = new HashMap<>();
-    private final Plugin plugin;
+    private final JavaPlugin plugin;
 
     /**
      * Constructs a new ConfigManager.
      *
      * @param plugin The plugin instance using this manager
      */
-    public ConfigManager(Plugin plugin) {
+    public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
@@ -74,32 +74,30 @@ public class ConfigManager {
         }
     }
 
-    /**
-     * Retrieves a registered configuration file by its associated {@link String} config.
-     *
-     * @param config The {@link String} key associated with the configuration file.
-     * @return The corresponding {@link ConfigHandler} instance.
-     * @throws IllegalStateException if the configuration file is not registered.
-     */
-    public ConfigHandler get(@NotNull String config) {
+    private ConfigHandler get(@NotNull String config) {
         ConfigHandler handler = configurations.get(config);
         if (handler == null) throw new IllegalStateException("Config file not registered: " + config);
         return handler;
     }
 
     /**
-     * Registers a configuration file in the manager. And then,
-     * Saves the default configuration files if it does not already exist.
+     * Registers configuration file in the manager.
      *
-     * @param configs The {@link ConfigHandler} instance to associate with the given key.
+     * @param configs The {@link ConfigHandler} instance to associate with its name.
      */
     public void register(ConfigHandler... configs) {
         for (ConfigHandler config : configs) {
             configurations.put(config.getName(), config);
-            config.saveDefaultConfig();
         }
         plugin.getLogger().log(Level.INFO, "[PDK CONFIG] Successfully registered " + configs.length + " config file(s). Total: " + configurations.size());
-        plugin.getLogger().log(Level.INFO, "[PDK CONFIG] Successfully saved " + configs.length + " config file(s)!");
+    }
+
+    /**
+     * Saves the default configuration files if it does not already exist.
+     */
+    public void saveDefault() {
+        configurations.values().forEach(ConfigHandler::saveDefault);
+        plugin.getLogger().log(Level.INFO, "[PDK CONFIG] Successfully saved " + configurations.size() + " config file(s)!");
     }
 
     /**
@@ -112,6 +110,10 @@ public class ConfigManager {
         return configurations.containsKey(config);
     }
 
+    protected ConfigManager clear() {
+        configurations.clear();
+        return this;
+    }
 
     /**
      * Retrieves the {@link FileConfiguration} associated with a registered configuration file.
