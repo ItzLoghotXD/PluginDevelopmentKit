@@ -119,9 +119,8 @@ public class ConfigManager {
         return configurations.containsKey(config);
     }
 
-    protected ConfigManager clear() {
+    protected void clear() {
         configurations.clear();
-        return this;
     }
 
     /**
@@ -132,5 +131,14 @@ public class ConfigManager {
      */
     public FileConfiguration getConfig(String config) {
         return get(config).getConfig();
+    }
+
+    /**
+     * Retrieves a map of all registered configuration files.
+     *
+     * @return A {@link Map} containing all registered {@link ConfigHandler} instances.
+     */
+    public Map<String, ConfigHandler> getConfigurations() {
+        return configurations;
     }
 }

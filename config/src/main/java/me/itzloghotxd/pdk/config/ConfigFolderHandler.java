@@ -79,7 +79,8 @@ public class ConfigFolderHandler {
     }
 
     protected void reload() {
-        configuration.reload();
+        configuration.clear();
+        configuration.load();
     }
 
     protected String getName() {

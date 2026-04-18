@@ -119,4 +119,13 @@ public class ConfigFolderManager {
     public FileConfiguration getConfig(String configFolder, String configFile) {
         return get(configFolder).getConfigManager().getConfig(configFolder+"/"+configFile);
     }
+
+    /**
+     * Retrieves a map of all registered configuration folders.
+     *
+     * @return A {@link Map} containing all registered {@link ConfigFolderHandler} instances.
+     */
+    public Map<String, ConfigFolderHandler> getConfigurations() {
+        return configurationFolders;
+    }
 }
