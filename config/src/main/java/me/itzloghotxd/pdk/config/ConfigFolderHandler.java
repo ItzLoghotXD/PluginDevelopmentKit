@@ -80,7 +80,7 @@ public class ConfigFolderHandler {
 
     protected void reload() {
         configuration.clear();
-        configuration.load();
+        load();
     }
 
     protected String getName() {
