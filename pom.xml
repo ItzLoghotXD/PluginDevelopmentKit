@@ -15,6 +15,7 @@
 
     <!-- All child modules -->
     <modules>
+        <module>command</module>
     </modules>
 
     <properties>
