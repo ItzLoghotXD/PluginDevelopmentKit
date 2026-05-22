@@ -10,7 +10,8 @@
 
 package me.itzloghotxd.pdk.command;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -62,14 +63,14 @@ public class CommandManager {
     public boolean execute(CommandSender sender, String[] args) {
         SubCommand subCommand = subCommands.get(args[0].toLowerCase());
         if (subCommand == null) {
-            sender.sendMessage(ChatColor.RED + "Unknown subcommand: " + args[0].toLowerCase());
+            sender.sendMessage(Component.text("Unknown subcommand: " + args[0].toLowerCase()).color(NamedTextColor.RED));
             return true;
         }
 
         String permission = subCommand.getPermission();
         if (permission != null && !permission.isEmpty()) {
             if (!sender.hasPermission(permission)) {
-                sender.sendMessage(ChatColor.RED + "You do not have the Permission to perform this subcommand!");
+                sender.sendMessage(Component.text("You do not have the Permission to perform this subcommand!").color(NamedTextColor.RED));
                 return true;
             }
         }

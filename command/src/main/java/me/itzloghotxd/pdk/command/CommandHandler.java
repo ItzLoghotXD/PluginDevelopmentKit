@@ -10,7 +10,8 @@
 
 package me.itzloghotxd.pdk.command;
 
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -62,7 +63,7 @@ public class CommandHandler implements CommandExecutor, TabExecutor {
                 return baseExecutor.execute(sender, command, label, args);
             }
 
-            sender.sendMessage(ChatColor.WHITE + "Usage: /" + name + " <subcommand>");
+            sender.sendMessage(Component.text("Usage: /" + name + " <subcommand>").color(NamedTextColor.WHITE));
             return true;
         }
 
