@@ -26,6 +26,7 @@ import java.util.logging.Level;
  * utility methods to interact with the file.
  *
  * @author ItzLoghotXD
+ * @since 0.2.0
  */
 public class ConfigHandler {
     private final JavaPlugin plugin;

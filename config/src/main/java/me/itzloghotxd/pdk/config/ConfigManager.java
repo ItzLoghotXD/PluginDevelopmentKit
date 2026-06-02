@@ -24,6 +24,7 @@ import java.util.logging.Level;
  * This class provides utility functions to save, reload, and retrieve configurations efficiently.
  *
  * @author ItzLoghotXD
+ * @since 0.2.0
  */
 public class ConfigManager {
     private final Map<String, ConfigHandler> configurations = new HashMap<>();
