@@ -86,7 +86,8 @@ public class ConfigHandler {
      * Reloads the configuration from disk.
      */
     public void reload() {
-        configuration = YamlConfiguration.loadConfiguration(file);
+        configuration = new YamlConfiguration();
+        load(false);
     }
 
     /**
@@ -94,17 +95,18 @@ public class ConfigHandler {
      *
      * @return The {@link FileConfiguration} instance.
      */
-    public FileConfiguration getConfig() {
+    public @NotNull FileConfiguration getConfig() {
         return configuration;
     }
 
     /**
-     * Gets the file name minus its 4-character extension (e.g., ".yml").
+     * Gets the configuration file name without the ".yml" extension.
      *
-     * @return The stripped file name.
+     * @return The configuration name.
      */
-    public String getName() {
-        return name.substring(0, name.length() - 4);
+    public @NotNull String getName() {
+        int index = name.lastIndexOf('.');
+        return index == -1 ? name : name.substring(0, index);
     }
 
     private void handleConfigLoadingException(Exception e, boolean b) {
