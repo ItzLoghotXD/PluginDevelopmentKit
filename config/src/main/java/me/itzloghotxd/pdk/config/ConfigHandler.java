@@ -54,10 +54,7 @@ public class ConfigHandler {
         }
     }
 
-    /**
-     * Saves the default configuration resource from the JAR if missing, then loads it.
-     */
-    public void saveDefault() {
+    protected void saveDefault() {
         if (!file.exists()) {
             try {
                 plugin.saveResource(name, false);
@@ -69,12 +66,7 @@ public class ConfigHandler {
         load(true);
     }
 
-    /**
-     * Saves the in-memory configuration to disk.
-     */
-    public void save() {
-        if (configuration == null || file == null) return;
-
+    protected void save() {
         try {
             configuration.save(file);
         } catch (IOException e) {
@@ -82,29 +74,16 @@ public class ConfigHandler {
         }
     }
 
-    /**
-     * Reloads the configuration from disk.
-     */
-    public void reload() {
+    protected void reload() {
         configuration = new YamlConfiguration();
         load(false);
     }
 
-    /**
-     * Retrieves the {@link FileConfiguration} associated with this configuration file.
-     *
-     * @return The {@link FileConfiguration} instance.
-     */
-    public @NotNull FileConfiguration getConfig() {
+    protected @NotNull FileConfiguration getConfig() {
         return configuration;
     }
 
-    /**
-     * Gets the configuration file name without the ".yml" extension.
-     *
-     * @return The configuration name.
-     */
-    public @NotNull String getName() {
+    protected @NotNull String getName() {
         int index = name.lastIndexOf('.');
         return index == -1 ? name : name.substring(0, index);
     }
