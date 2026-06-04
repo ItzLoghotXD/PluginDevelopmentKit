@@ -97,7 +97,11 @@ public class ConfigManager {
      */
     public void register(ConfigHandler... configs) {
         for (ConfigHandler config : configs) {
-            configurations.put(config.getName(), config);
+            String name = config.getName();
+            if (configurations.containsKey(name)) {
+                throw new IllegalStateException("[PDK CONFIG] Config file with name: \"" + name + "\" is already registered. Please re-check.");
+            }
+            configurations.put(name, config);
         }
         plugin.getLogger().log(Level.INFO, "[PDK CONFIG] Successfully registered " + configs.length + " config file(s). Total: " + configurations.size());
     }
@@ -126,7 +130,7 @@ public class ConfigManager {
      * @param config The {@link String} key associated with the configuration file.
      * @return The {@link FileConfiguration} instance.
      */
-    public FileConfiguration getConfig(String config) {
+    public @NotNull FileConfiguration getConfig(@NotNull String config) {
         return get(config).getConfig();
     }
 

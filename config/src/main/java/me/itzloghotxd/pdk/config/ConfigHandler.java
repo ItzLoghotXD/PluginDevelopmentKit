@@ -38,7 +38,7 @@ public class ConfigHandler {
      * Constructs a new ConfigHandler for managing a specific configuration file.
      *
      * @param plugin The plugin instance using this configuration handler.
-     * @param name The name of the configuration file (without ".yml" extension) [Case sensitive].
+     * @param name The name of the configuration file (without ".yml" extension).
      */
     public ConfigHandler(@NotNull JavaPlugin plugin, @NotNull String name) {
         this.plugin = plugin;

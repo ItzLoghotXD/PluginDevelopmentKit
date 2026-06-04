@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -48,7 +49,11 @@ public class CommandManager {
      */
     public void register(@NotNull SubCommand... commands) {
         for (SubCommand command : commands) {
-            subCommands.put(command.getIdentifier().toLowerCase(), command);
+            String name = command.getIdentifier().toLowerCase(Locale.ROOT);
+            if (subCommands.containsKey(name)) {
+                throw new IllegalStateException("[PDK COMMAND] SubCommand with name: \"" + name + "\" is already registered. Please re-check.");
+            }
+            subCommands.put(name, command);
         }
         plugin.getLogger().info("[PDK COMMAND] Successfully registered " + commands.length + " subcommand(s). Total: " + subCommands.size());
     }
@@ -58,12 +63,12 @@ public class CommandManager {
      *
      * @param sender The sender who executed the command.
      * @param args The arguments passed to the command.
-     * @return {@code true} if the command was handled successfully, {@code false} otherwise.
+     * @return true if a valid subcommand, otherwise false.
      */
     public boolean execute(CommandSender sender, String[] args) {
-        SubCommand subCommand = subCommands.get(args[0].toLowerCase());
+        SubCommand subCommand = subCommands.get(args[0].toLowerCase(Locale.ROOT));
         if (subCommand == null) {
-            sender.sendMessage(Component.text("Unknown subcommand: " + args[0].toLowerCase()).color(NamedTextColor.RED));
+            sender.sendMessage(Component.text("Unknown subcommand: " + args[0].toLowerCase(Locale.ROOT)).color(NamedTextColor.RED));
             return true;
         }
 
@@ -88,11 +93,11 @@ public class CommandManager {
      */
     public List<String> getTabCompletions(CommandSender sender, String[] args) {
         if (args.length == 1) {
-            return subCommands.keySet().stream().filter(subCommand -> subCommand.startsWith(args[0].toLowerCase())).toList();
+            return subCommands.keySet().stream().filter(subCommand -> subCommand.startsWith(args[0].toLowerCase(Locale.ROOT))).toList();
         }
 
         if (args.length > 1) {
-            SubCommand subCommand = subCommands.get(args[0].toLowerCase());
+            SubCommand subCommand = subCommands.get(args[0].toLowerCase(Locale.ROOT));
             if (subCommand != null) {
                 return subCommand.onTabComplete(sender, args);
             }
