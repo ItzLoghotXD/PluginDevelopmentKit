@@ -17,6 +17,7 @@
     <modules>
         <module>command</module>
         <module>config</module>
+        <module>gui</module>
     </modules>
 
     <properties>
