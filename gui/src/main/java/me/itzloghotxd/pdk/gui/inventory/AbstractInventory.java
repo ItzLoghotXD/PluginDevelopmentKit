@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents an abstract inventory providing a base structure for custom {@link Inventory} implementations.
- * It implements {@link InventoryHolder} and provides utility methods for setting up slots,
+ * It implements {@link InventoryHolder} and provides utility methods for setting up rows,
  * handling item placement, and responding to click or close events.
  *
  * @author ItzLoghotXD
@@ -45,11 +45,11 @@ public abstract class AbstractInventory implements InventoryHolder {
     public abstract Component getTitle();
 
     /**
-     * Gets the number of slots in the inventory.
+     * Gets the number of rows in the inventory.
      *
-     * @return The number of slots in the inventory.
+     * @return The number of rows in the inventory.
      */
-    public abstract int getSlots();
+    public abstract Row getRows();
 
     /**
      * Handles inventory interactions when an item is clicked.
@@ -71,7 +71,7 @@ public abstract class AbstractInventory implements InventoryHolder {
      * @param player The player for whom the inventory is opened.
      */
     public void open(@NotNull Player player) {
-        inventory = Bukkit.createInventory(this, getSlots(), getTitle());
+        inventory = Bukkit.createInventory(this, getRows().getSlots(), getTitle());
         setItems();
         player.openInventory(inventory);
     }
@@ -110,5 +110,24 @@ public abstract class AbstractInventory implements InventoryHolder {
      * @param event The inventory open event.
      */
     public void onOpen(InventoryOpenEvent event) {
+    }
+
+    public enum Row {
+        ONE(9),
+        TWO(18),
+        THREE(27),
+        FOUR(36),
+        FIVE(45),
+        SIX(54);
+
+        private final int slots;
+
+        Row(int slots) {
+            this.slots = slots;
+        }
+
+        public int getSlots() {
+            return slots;
+        }
     }
 }
