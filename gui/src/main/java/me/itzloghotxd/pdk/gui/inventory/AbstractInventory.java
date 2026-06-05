@@ -26,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
  * handling item placement, and responding to click or close events.
  *
  * @author ItzLoghotXD
+ * @since 0.2.0
  */
 public abstract class AbstractInventory implements InventoryHolder {
 

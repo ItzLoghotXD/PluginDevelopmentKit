@@ -25,6 +25,7 @@ import org.bukkit.inventory.InventoryHolder;
  * Plugins utilizing this framework must register this listener in their main class.
  *
  * @author ItzLoghotXD
+ * @since 0.2.0
  */
 public class InventoryListener implements Listener {
 
