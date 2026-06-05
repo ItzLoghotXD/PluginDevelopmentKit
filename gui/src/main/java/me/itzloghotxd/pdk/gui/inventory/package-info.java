@@ -14,6 +14,6 @@
  * by the plugin to catch and route inventory events to their respective menus.</p>
  *
  * @author ItzLoghotXD
- * @since 0.2.0
+ * @since 0.3.0
  */
 package me.itzloghotxd.pdk.gui.inventory;

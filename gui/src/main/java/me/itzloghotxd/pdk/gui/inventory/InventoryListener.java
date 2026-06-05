@@ -20,12 +20,12 @@ import org.bukkit.inventory.InventoryHolder;
 /**
  * Listens for inventory interactions and delegates them to the corresponding {@link AbstractInventory}.
  * It handles inventory clicks, openings, and closures via {@link InventoryClickEvent},
- * {@link InventoryOpenEvent}, and {@link InventoryCloseEvent}. <br>
- *
+ * {@link InventoryOpenEvent}, and {@link InventoryCloseEvent}.
+ * <br>
  * Plugins utilizing this framework must register this listener in their main class.
  *
  * @author ItzLoghotXD
- * @since 0.2.0
+ * @since 0.3.0
  */
 public class InventoryListener implements Listener {
 

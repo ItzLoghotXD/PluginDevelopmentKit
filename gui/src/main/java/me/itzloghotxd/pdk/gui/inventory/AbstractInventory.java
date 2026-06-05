@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  * handling item placement, and responding to click or close events.
  *
  * @author ItzLoghotXD
- * @since 0.2.0
+ * @since 0.3.0
  */
 public abstract class AbstractInventory implements InventoryHolder {
 
@@ -39,16 +39,16 @@ public abstract class AbstractInventory implements InventoryHolder {
     }
 
     /**
-     * Gets the title of the inventory.
+     * Returns the title of the inventory.
      *
-     * @return The title of the inventory.
+     * @return The text component title.
      */
     public abstract Component getTitle();
 
     /**
-     * Gets the number of rows in the inventory.
+     * Returns the number of rows in the inventory.
      *
-     * @return The number of rows in the inventory.
+     * @return The row configuration enum.
      */
     public abstract Row getRows();
 
@@ -113,6 +113,9 @@ public abstract class AbstractInventory implements InventoryHolder {
     public void onOpen(InventoryOpenEvent event) {
     }
 
+    /**
+     * Defines standard chest-inventory row sizes mapped to their total slot counts.
+     */
     public enum Row {
         ONE(9),
         TWO(18),
@@ -127,6 +130,11 @@ public abstract class AbstractInventory implements InventoryHolder {
             this.slots = slots;
         }
 
+        /**
+         * Returns the underlying raw integer slot count for the given rows.
+         *
+         * @return Total capacity in slots.
+         */
         public int getSlots() {
             return slots;
         }
