@@ -57,7 +57,7 @@ public abstract class AbstractInventory implements InventoryHolder {
      *
      * @param event The inventory click event.
      */
-    public abstract void handleInventory(InventoryClickEvent event);
+    public abstract void handleClick(InventoryClickEvent event);
 
     /**
      * Sets the initial items inside the inventory.

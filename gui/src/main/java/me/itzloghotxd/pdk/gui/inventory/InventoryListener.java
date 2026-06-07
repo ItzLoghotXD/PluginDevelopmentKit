@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
 /**
@@ -36,15 +37,15 @@ public class InventoryListener implements Listener {
      * @param event The inventory click event.
      */
     @EventHandler
-    public void onInventoryClicked(InventoryClickEvent event) {
+    public void onInventoryClick(InventoryClickEvent event) {
         InventoryHolder holder = event.getInventory().getHolder();
 
         if (holder instanceof AbstractInventory inventory) {
-            if (event.getCurrentItem() == null) return;
-            if (event.getClickedInventory() == null) return;
-            if (event.getClickedInventory() != event.getView().getTopInventory()) return;
+            Inventory clickedInventory = event.getClickedInventory();
+            if (clickedInventory == null) return;
+            if (clickedInventory != event.getView().getTopInventory()) return;
 
-            inventory.handleInventory(event);
+            inventory.handleClick(event);
         }
     }
 
