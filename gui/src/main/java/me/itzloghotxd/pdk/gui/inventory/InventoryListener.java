@@ -43,7 +43,6 @@ public class InventoryListener implements Listener {
         if (holder instanceof AbstractInventory inventory) {
             Inventory clickedInventory = event.getClickedInventory();
             if (clickedInventory == null) return;
-            if (clickedInventory != event.getView().getTopInventory()) return;
 
             inventory.handleClick(event);
         }
