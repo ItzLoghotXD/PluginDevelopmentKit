@@ -31,11 +31,13 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractInventory implements InventoryHolder {
 
     protected Inventory inventory;
+    protected Player player;
 
     /**
      * Constructs an {@code AbstractInventory} instance.
      */
-    public AbstractInventory() {
+    public AbstractInventory(Player player) {
+        this.player = player;
     }
 
     /**
@@ -68,10 +70,8 @@ public abstract class AbstractInventory implements InventoryHolder {
     /**
      * Opens the inventory for a specific player.
      * This method initializes the inventory and populates it with items.
-     *
-     * @param player The player for whom the inventory is opened.
      */
-    public void open(@NotNull Player player) {
+    public void open() {
         inventory = Bukkit.createInventory(this, getRows().getSlots(), getTitle());
         setItems();
         player.openInventory(inventory);
