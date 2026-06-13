@@ -18,6 +18,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.logging.Level;
 
 /**
@@ -42,7 +43,7 @@ public class ConfigHandler {
      */
     public ConfigHandler(@NotNull JavaPlugin plugin, @NotNull String name) {
         this.plugin = plugin;
-        this.name = name.endsWith(".yml") ? name : name + ".yml";
+        this.name = (name.endsWith(".yml") ? name : name + ".yml").toLowerCase(Locale.ROOT);
         file = new File(plugin.getDataFolder(), this.name);
         configuration = new YamlConfiguration();
     }
