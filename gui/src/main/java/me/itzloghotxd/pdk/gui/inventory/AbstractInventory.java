@@ -19,6 +19,9 @@ import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.UUID;
 
 /**
  * Represents an abstract inventory providing a base structure for custom {@link Inventory} implementations.
@@ -31,13 +34,13 @@ import org.jetbrains.annotations.NotNull;
 public abstract class AbstractInventory implements InventoryHolder {
 
     protected Inventory inventory;
-    protected Player player;
+    protected UUID playerId;
 
     /**
      * Constructs an {@code AbstractInventory} instance.
      */
-    public AbstractInventory(Player player) {
-        this.player = player;
+    public AbstractInventory(UUID playerId) {
+        this.playerId = playerId;
     }
 
     /**
@@ -72,9 +75,17 @@ public abstract class AbstractInventory implements InventoryHolder {
      * This method initializes the inventory and populates it with items.
      */
     public void open() {
+        Player player = getPlayer();
+        if (player == null) return;
+
         inventory = Bukkit.createInventory(this, getRows().getSlots(), getTitle());
         setItems();
         player.openInventory(inventory);
+    }
+
+    @Nullable
+    protected Player getPlayer() {
+        return Bukkit.getPlayer(playerId);
     }
 
     /**
